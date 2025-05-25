@@ -498,6 +498,41 @@ app.post('/addProperty', async (req, res) => {
   }
 });
 
+
+// نقطة النهاية لإعادة تعيين كلمة المرور
+app.post('/reset-password', async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  // التحقق من وجود البيانات المطلوبة
+  if (!email || !newPassword) {
+    return res.status(400).json({ message: 'Email and new password are required' });
+  }
+
+  try {
+    // البحث عن المستخدم بالبريد الإلكتروني
+    const user = await User.findOne({ email });
+
+    // التحقق مما إذا كان المستخدم موجودًا
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // تشفير كلمة المرور الجديدة
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // تحديث كلمة المرور وحفظ المستخدم
+    user.password = hashedPassword;
+    await user.save();
+
+    // إرسال استجابة نجاح
+    return res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.get('/getAllProperties', async (req, res) => {
   try {
     const properties = await Property.find({});
