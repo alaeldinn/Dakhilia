@@ -1762,10 +1762,10 @@ app.get('/getPropertyRatings/:propertyId', async (req, res) => {
 
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
-  // استخدام المسافة الإقليدية (Euclidean)
+  
   const dx = lat1 - lat2;
   const dy = lon1 - lon2;
-  return Math.sqrt(dx * dx + dy * dy); // قيمة غير دقيقة بالكيلومترات ولكن مناسبة للمقارنة
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
 // دالة لتحويل الدرجات إلى راديان
@@ -2093,7 +2093,7 @@ app.post('/saveMessage', async (req, res) => {
 
     // تحديد بيانات المستقبل يدويًا
     const recipientId = '67fa9e5998eac616535ac1cc';
-    const recipientEmail = 'hymaha@cyclelove.cc';
+    const recipientEmail = 'adimn@Dakhilia.com';
     const recipientAccountType = 'Administrator';
 
     // التحقق من وجود المستقبل في قاعدة البيانات
@@ -2661,8 +2661,7 @@ app.post('/faqs/:id/resend', async (req, res) => {
       });
     }
 
-    // هنا يمكنك إضافة أي منطق لإعادة الإرسال إذا لزم الأمر
-    // مثلاً إرسال إشعار للمستخدمين بوجود تحديث في الـ FAQs
+   
 
     res.status(200).json({
       success: true,
